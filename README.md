@@ -1,6 +1,6 @@
 # CONNECT ME
 
-This is the backend application (REST API) for wedding story.
+This is the backend application for anagrammy
 
 ## Steps
 
@@ -8,10 +8,10 @@ This is the backend application (REST API) for wedding story.
 
 ```
 //on local
-git clone <repo-host>/connectme-backend
+git clone <repo-host>/anagrammy-backend
 ```
 ```
-cd connectme-backend
+cd anagrammy-backend
 
 nvm install
 
@@ -43,13 +43,13 @@ pm2 start ./dist/ecosystem.config.js -- [NODE_ENV]
 - restart
 
 ```
-pm2 restart connect-me
+pm2 restart anagrammy-backend
 ```
 
 - logs
 
 ```
-pm2 logs connect-me
+pm2 logs anagrammy-backend
 ```
 
 ## 5. Migrations
