@@ -1,0 +1,28 @@
+{
+  "Define a sequelize model": {
+    "scope": "javascript,typescript",
+    "prefix": "dbentity",
+    "body": [
+      "import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';",
+      "\n",
+      "@Entity('${TM_FILENAME_BASE/(.*)/${1:/downcase}/}')",
+      "export class ${TM_FILENAME_BASE} extends BaseEntity {",
+      "\t@PrimaryGeneratedColumn('uuid')",
+      "\tid: string;",
+      "\n",
+      "\t@CreateDateColumn({ type: 'timestamptz' })",
+      "\tcreated_at: Date;",
+      "\n",
+      "\t@UpdateDateColumn({ type: 'timestamptz' })",
+      "\tupdated_at: Date;",
+      "\n",
+      "\t@Column({ type: 'boolean', default: false })",
+      "\tis_deleted: boolean;",
+      "\n",
+      "\t@DeleteDateColumn({ type: 'timestamptz', nullable: true })",
+      "\tdeleted_at: Date;",
+      "}"
+    ],
+    "description": "A snippet that creates a base of an entity"
+  }
+}
