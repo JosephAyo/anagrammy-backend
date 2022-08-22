@@ -1,5 +1,4 @@
 import request from "supertest";
-import { Express } from "express-serve-static-core";
 import app from "@server";
 import { IErrorResponseDto, ISuccessResponseDto } from "@utils/responses";
 import { getUserByEmail } from "@utils/users";
@@ -16,8 +15,9 @@ import {
 } from "@test-setup/services/userService.setup";
 import { randomInvalidId } from "@test-setup/utils/common.setup";
 import { AppDataSource } from "@database/data-source";
+import http from "http";
 
-let server: Express;
+let server: http.Server;
 
 beforeAll(async () => {
   server = app;

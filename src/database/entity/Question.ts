@@ -49,8 +49,8 @@ export class Question extends BaseEntity {
   @CreateDateColumn({ type: "timestamptz" })
   asked_at: Date;
 
-  @CreateDateColumn({ type: "timestamptz" })
-  answered_at: Date;
+  @CreateDateColumn({ type: "timestamptz" , nullable: true })
+  answered_at?: Date;
 
   @CreateDateColumn({ type: "timestamptz" })
   created_at: Date;

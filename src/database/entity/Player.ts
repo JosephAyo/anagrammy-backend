@@ -2,8 +2,11 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, U
 
 @Entity("player")
 export class Player extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
+
+  @Column({ type: "varchar", length: 255, nullable: true })
+  socket_client_id?: string;
 
   @Column({ type: "varchar", length: 255, nullable: true })
   username?: string;

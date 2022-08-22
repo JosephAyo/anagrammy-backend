@@ -1,4 +1,4 @@
-# CONNECT ME
+# ANAGRAMMY
 
 This is the backend application for anagrammy
 
