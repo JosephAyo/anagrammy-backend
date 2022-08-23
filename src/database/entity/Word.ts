@@ -8,6 +8,9 @@ export class Word extends BaseEntity {
   @Column({ type: "text" })
   word: string;
 
+  @Column({ type: "int4" })
+  word_length: number;
+
   @CreateDateColumn({ type: "timestamptz" })
   created_at: Date;
 

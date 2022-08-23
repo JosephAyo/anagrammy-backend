@@ -8,12 +8,14 @@ import {
   DeleteDateColumn,
   JoinColumn,
   ManyToOne,
+  OneToMany,
 } from "typeorm";
 import { Player } from "./Player";
+import { Question } from "./Question";
 
 @Entity("game")
 export class Game extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @ManyToOne(() => Player, (player) => player.id, { onUpdate: "CASCADE", onDelete: "CASCADE" })
@@ -36,10 +38,10 @@ export class Game extends BaseEntity {
   correct_count: number;
 
   @CreateDateColumn({ type: "timestamptz", nullable: true })
-  started_at: Date;
+  started_at?: Date;
 
   @CreateDateColumn({ type: "timestamptz", nullable: true })
-  finished_at: Date;
+  finished_at?: Date;
 
   @CreateDateColumn({ type: "timestamptz" })
   created_at: Date;
@@ -52,4 +54,7 @@ export class Game extends BaseEntity {
 
   @DeleteDateColumn({ type: "timestamptz", nullable: true })
   deleted_at: Date;
+
+  @OneToMany(() => Question, (questions) => questions.game)
+  questions: Question[];
 }

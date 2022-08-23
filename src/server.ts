@@ -10,8 +10,16 @@ import http from "http";
 import { Server } from "socket.io";
 import { checkAndUpdateExistingPlayer, createPlayer } from "@utils/player";
 import { sendQuestion, socketConnection } from "@utils/socket";
-import { createGame, getGameByPlayerId, updateGameToNextLevel } from "@utils/game";
-import { createQuestion } from "@utils/question";
+import {
+  checkAndUpdateExistingGame,
+  completeGame,
+  createGame,
+  getGameByIdAndPlayerId,
+  updateGameAfterAnswer,
+  updateGameToNextLevel,
+} from "@utils/game";
+import { createQuestion, getQuestionByIdAndGameId } from "@utils/question";
+import { checkAnswer } from "@utils/word";
 
 const PREFIX = "/api/" + process.env.version || "v1";
 
@@ -96,6 +104,33 @@ io.on("connection", function (socket) {
     else {
       const question = await createQuestion(existingGame.id, existingGame.current_level + 1);
       sendQuestion(socketClientId, existingGame, question);
+    }
+  });
+
+  socket.on("answer_question", async (data) => {
+    const { playerId, gameId, questionId } = data;
+    const existingGame = await getGameByIdAndPlayerId(gameId, playerId);
+    const existingQuestion = await getQuestionByIdAndGameId(questionId, gameId);
+    if (!existingGame) return io.to(socketClientId).emit("error", { hasError: true, code: 424, message: "no existing game" });
+    if (!existingQuestion) return io.to(socketClientId).emit("error", { hasError: true, code: 424, message: "no existing question" });
+    const answer = await checkAnswer(data);
+    const updatedGame = await updateGameAfterAnswer(existingGame, existingQuestion, answer);
+    if (updatedGame && updatedGame.current_level === updatedGame.total_levels) {
+      const completedGame = await completeGame(gameId);
+      return io
+        .to(socketClientId)
+        .emit("game_completed", { data: { title: answer.title, code: answer.code, answer, game: completedGame } });
+    }
+    return io.to(socketClientId).emit("answer_response", { data: { title: answer.title, code: answer.code, answer, game: updatedGame } });
+  });
+
+  socket.on("game_summary", async (data) => {
+    const { playerId, gameId } = data;
+    const existingGame = await getGameByIdAndPlayerId(gameId, playerId);
+    if (!existingGame) return io.to(socketClientId).emit("error", { hasError: true, code: 424, message: "no existing game" });
+    if (existingGame.current_level === existingGame.total_levels) {
+      const completedGame = await completeGame(gameId);
+      return io.to(socketClientId).emit("game_summary_response", { data: { title: "Success", code: 200, game: completedGame } });
     }
   });
 });

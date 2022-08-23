@@ -8,19 +8,34 @@ export const getWordById = async (id: number): Promise<Word | null> => {
 };
 
 export const getRandomWord = async (): Promise<Word | null> => {
-  return await wordRepository.createQueryBuilder().orderBy("RANDOM()").limit(1).getOne();
+  return await wordRepository.createQueryBuilder().where(`"word_length" = ${5}`).orderBy("RANDOM()").limit(1).getOne();
 };
 
-export interface IAnswer {
+export interface IAnswerDTO {
   word: string;
   anagram: string;
   has_anagram: boolean;
 }
+export interface IAnswerResponseDTO extends IAnswerDTO {
+  title: string;
+  code: number;
+  data?: {
+    verdict: "correct" | "incorrect";
+    anagramWords: Array<string>;
+  };
+}
 
-export const checkAnswer = async (body: IAnswer): Promise<any> => {
+export const checkAnswer = async (body: IAnswerDTO): Promise<IAnswerResponseDTO> => {
   const { word, anagram, has_anagram } = body;
   const existingWord = await wordRepository.createQueryBuilder().where(`"word" = :word`, { word }).getOne();
-  if (!existingWord) return null;
+  if (!existingWord)
+    return {
+      word,
+      anagram,
+      has_anagram,
+      title: "Error",
+      code: 500,
+    };
   const wordMap = existingWord.word.split("").reduce((acc: { [key: string]: number }, curr) => {
     if (acc[curr]) {
       acc[curr] += 1;
@@ -68,6 +83,9 @@ export const checkAnswer = async (body: IAnswer): Promise<any> => {
     : "incorrect";
 
   return {
+    word,
+    anagram,
+    has_anagram,
     title: "Success",
     code: 200,
     data: {

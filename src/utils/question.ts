@@ -1,25 +1,36 @@
 import { AppDataSource } from "@database/data-source";
 import { Question } from "@database/entity/Question";
-import { getRandomWord } from "./word";
+import { getRandomWord, IAnswerResponseDTO } from "./word";
 
 const questionRepository = AppDataSource.getRepository(Question);
 
-export const getQuestionById = async (id: string): Promise<Question | null> => {
-  return await questionRepository.createQueryBuilder().where(`"id" = :id`, { id }).getOne();
+export const getQuestionById = async (questionId: string): Promise<Question | null> => {
+  return await questionRepository.createQueryBuilder().where(`"id" = :id`, { id: questionId }).getOne();
 };
 
-// export const checkAndUpdateExistingQuestion = async (id: string, socketClientId: string): Promise<Question | null> => {
-//   let existingQuestion = await getQuestionById(id);
-//   if (!existingQuestion) return null;
+export const getQuestionByIdAndGameId = async (questionId: string, gameId: string): Promise<Question | null> => {
+  return await questionRepository
+    .createQueryBuilder()
+    .where(`"id" = :question_id`, { question_id: questionId })
+    .andWhere(`"game_id" = :game_id`, { game_id: gameId })
+    .getOne();
+};
 
-//   await questionRepository.update(
-//     { id },
-//     {
-//       socket_client_id: socketClientId,
-//     },
-//   );
-//   return await getQuestionById(id);
-// };
+export const updateQuestionAfterAnswer = async (question: Question, answer: IAnswerResponseDTO): Promise<Question | null> => {
+  const { id: questionId } = question;
+
+  const { data, anagram, has_anagram } = answer;
+  if (data) {
+    await questionRepository
+      .createQueryBuilder("question")
+      .update(Question)
+      .where(`"question"."id" = :id`, { id: questionId })
+      .set({ answer: anagram, is_answer_no_anagram: !has_anagram, is_correct: data.verdict === "correct", answered_at: new Date() })
+      .execute();
+  }
+
+  return await getQuestionById(questionId);
+};
 
 export const createQuestion = async (gameId: string, currentGameLevel: number): Promise<Question | null> => {
   const word = await getRandomWord();

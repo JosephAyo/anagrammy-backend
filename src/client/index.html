@@ -7,14 +7,31 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <div class="container">
-      <form class="message_form">
-        <input type="text" class="message_form__input" placeholder="Type a message" />
-        <button class="message_form__button" type="submit">Enter</button>
-      </form>
+    <div id="container">
+      <div>
+        <div id="game_details">
+          <p id="game_progress"></p>
+          <p id="game_score"></p>
+          <p id="game_summary"></p>
+        </div>
+
+        <div id="error_details">
+          <p id="error_message"></p>
+        </div>
+
+        <div id="question_details">
+          <p id="question_word"></p>
+        </div>
+        <form id="answer_form">
+          <input type="text" id="answer_form__input" placeholder="Anagram" />
+          <button id="answer_form__button" type="submit">Enter</button>
+          <button id="no_anagram_form__button" type="submit">No anagram</button>
+        </form>
+      </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <script src="main.js"></script>
   </body>
 </html>
+ 
