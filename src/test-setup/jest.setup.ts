@@ -22,7 +22,7 @@ export const testAdminUserTwo = {
   password: faker.internet.password(8, true, passwordRegexPattern),
 };
 export const globalTestUser = {
-  first_name: faker.name.firstName(),
+  username: faker.name.firstName(),
   email: faker.unique(faker.internet.email),
   phone: faker.phone.phoneNumber("###########"),
   password: faker.internet.password(8, true, passwordRegexPattern),
@@ -54,7 +54,7 @@ beforeAll(async () => {
   await AppDataSource.manager.save(adminUser);
 
   const regularUser = new User();
-  regularUser.username = globalTestUser.first_name;
+  regularUser.username = globalTestUser.username;
   regularUser.email = globalTestUser.email;
   regularUser.phone = globalTestUser.phone;
   regularUser.is_email_verified = true;

@@ -17,19 +17,19 @@ interface ICommandLineOptions {
     {
       name: "node_env",
       alias: "e",
-      defaultValue: "development",
-      type: String
+      defaultValue: null,
+      type: String,
     },
     {
       name: "watch_changes",
       alias: "w",
-      type: Boolean
-    }
+      type: Boolean,
+    },
   ]) as ICommandLineOptions;
 
   // Set the env file
   const result2 = dotenv.config({
-    path: path.join(__dirname, `env/${options.node_env}.env`)
+    path: options.node_env ? path.join(__dirname, `env/${options.node_env}.env`) : path.join(__dirname, `env/.env`),
   });
   if (result2.error) {
     throw result2.error;

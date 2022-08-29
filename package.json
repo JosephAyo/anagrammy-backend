@@ -1,5 +1,5 @@
 {
-  "name": "connectme-backend",
+  "name": "anagrammy-api",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
@@ -20,15 +20,15 @@
     "exec": "./node_modules/.bin/ts-node --files -r tsconfig-paths/register ./src"
   },
   "_moduleAliases": {
-    "@config": "dist/config",
-    "@server": "dist/server",
-    "@database": "dist/database",
-    "@utils": "dist/utils",
-    "@routes": "dist/routes",
-    "@models": "dist/models",
-    "@services": "dist/services",
-    "@middlewares": "dist/middlewares",
-    "@test-setup": "dist/test-setup"
+    "@config": "dist/src/config",
+    "@server": "dist/src/server",
+    "@database": "dist/src/database",
+    "@utils": "dist/src/utils",
+    "@routes": "dist/src/routes",
+    "@models": "dist/src/models",
+    "@services": "dist/src/services",
+    "@middlewares": "dist/src/middlewares",
+    "@test-setup": "dist/src/test-setup"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.109.0",
@@ -37,7 +37,6 @@
     "bcryptjs": "^2.4.3",
     "command-line-args": "^5.2.1",
     "cors": "^2.8.5",
-    "crypto": "^1.0.1",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "firebase-admin": "^11.0.1",
