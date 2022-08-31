@@ -1,0 +1,17 @@
+version: '3'
+services:
+  anagrammy-api:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 5884:5884
+  postgresdb:
+    image: postgres:14
+    ports:
+      - "5922:5432"
+    volumes:
+      - postgresdb_data:/var/lib/postgresql/data
+
+volumes:
+  postgresdb_data: {}

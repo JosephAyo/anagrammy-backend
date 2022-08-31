@@ -56,7 +56,7 @@ pm2 logs anagrammy-backend
 Bash scripts to generate and run/revert migration(s) are located in the bash-scripts dir
 
 ```
-cd bash-scripts
+cd scripts
 ```
 
 action | script 

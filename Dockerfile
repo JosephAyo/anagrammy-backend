@@ -20,8 +20,10 @@ RUN yarn build-dist
 RUN mkdir -p /usr/app/dist/src/client
 
 COPY ./src/client /usr/app/dist/src/client
+COPY ./scripts /usr/app/dist/scripts
 
 WORKDIR /usr/app/dist
 
 EXPOSE 5884
-CMD node -r module-alias/register src/index.js
+
+CMD sh scripts/run-migrations.sh && node -r module-alias/register src/index.js

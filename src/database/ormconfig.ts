@@ -1,28 +1,10 @@
 import dotenv from "dotenv";
 import path from "path";
-import commandLineArgs from "command-line-args";
 import { DataSource } from "typeorm";
 import { readFileSync } from "fs";
-
-interface ICommandLineOptions {
-  node_env: string;
-}
-// Setup command line options
-const options = commandLineArgs(
-  [
-    {
-      name: "node_env",
-      alias: "e",
-      defaultValue: "development",
-      type: String,
-    },
-  ],
-  { partial: true },
-) as ICommandLineOptions;
-
 // Set the env file
 const result2 = dotenv.config({
-  path: path.join(__dirname, `../pre-start/env/${options.node_env}.env`),
+  path: path.join(__dirname, `../pre-start/env/.env`),
 });
 if (result2.error) {
   throw result2.error;

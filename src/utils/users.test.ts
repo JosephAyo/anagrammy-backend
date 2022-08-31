@@ -6,7 +6,7 @@ import { getUserByEmail, getUserByPhone, signInUser } from "./users";
 import { generateUserJWT, hashString } from "./auth";
 
 describe("Find users", () => {
-  test("should be greater than 0a", async () => {
+  test("should be greater than 0", async () => {
     const users = await AppDataSource.manager.find(User);
     expect(users.length).toBeGreaterThan(0);
   });
