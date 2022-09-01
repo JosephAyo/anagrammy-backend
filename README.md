@@ -2,65 +2,32 @@
 
 This is the backend application for anagrammy
 
+## Pre-requisites
+* Docker
+* Postgres
+
+
 ## Steps
 
-## 1. Download & Install packages
+### 1. Clone repo
 
 ```
-//on local
-git clone <repo-host>/anagrammy-backend
-```
-```
-cd anagrammy-backend
-
-nvm install
-
-yarn install
-
-sudo yarn global add typeorm
+git clone https://github.com/JosephAyo/anagrammy-backend
 ```
 
-## 2. Create gitignored files.
-
+### 2. Create gitignored files.
 They are:
+- src/pre-start/env/.env using the .env.example as a template
 
-- src/pre-start/env/[NODE_ENV].env
-
-## 2. Transpile
-
-```
-yarn build-dist [NODE_ENV]
-```
-
-## 3. Start the application.
+### 3. Build Docker image.
 
 ```
-pm2 start ./dist/ecosystem.config.js -- [NODE_ENV]
+docker build -t anagrammy-api .
 ```
-
-## 4. Application management
-
-- restart
+### 3. Run Docker container.
 
 ```
-pm2 restart anagrammy-backend
+docker-compose -f docker-compose.yml up
 ```
 
-- logs
-
-```
-pm2 logs anagrammy-backend
-```
-
-## 5. Migrations
-Bash scripts to generate and run/revert migration(s) are located in the bash-scripts dir
-
-```
-cd scripts
-```
-
-action | script 
----|---
- generate migration file | ```bash create-new-migration.sh```
- run migrations | ```bash run-migrations.sh```
- revert last migration | ```bash revert-migration.sh```
+### 4. Application management

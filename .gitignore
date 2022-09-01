@@ -84,5 +84,3 @@ dist/
 
 #db dump
 *.dump
-
-src/pre-start/env/
