@@ -12,6 +12,20 @@ services:
       - "5922:5432"
     volumes:
       - postgresdb_data:/var/lib/postgresql/data
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/10-init.sql
+      - ./scripts/anagrammy.sql:/docker-entrypoint-initdb.d/20-anagrammy.sql
+
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
 
 volumes:
   postgresdb_data: {}

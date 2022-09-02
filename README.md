@@ -4,8 +4,6 @@ This is the backend application for anagrammy
 
 ## Pre-requisites
 * Docker
-* Postgres
-
 
 ## Steps
 
@@ -19,12 +17,7 @@ git clone https://github.com/JosephAyo/anagrammy-backend
 They are:
 - src/pre-start/env/.env using the .env.example as a template
 
-### 3. Build Docker image.
-
-```
-docker build -t anagrammy-api .
-```
-### 3. Run Docker container.
+### 3. Run api via docker.
 
 ```
 docker-compose -f docker-compose.yml up

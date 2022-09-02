@@ -1,3 +1,5 @@
+ \connect anagrammy;
+ 
 CREATE TABLE "user" (
   "id" uuid PRIMARY KEY DEFAULT (gen_random_uuid()),
   "username" varchar(255) NOT NULL,
