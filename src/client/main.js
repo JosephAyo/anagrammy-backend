@@ -11,16 +11,21 @@ let gameId;
 let questionId;
 let questionWord;
 
+const startGame = () => {
+  socket.emit("start_game", localStorage.getItem("player_id"));
+};
+
 const existingPlayerId = localStorage.getItem("player_id");
 if (!existingPlayerId) {
   socket.emit("request_new_player");
-  socket.on("current_player", ({ data }) => {
-    console.log(" current_player data :>> ", data);
-    localStorage.setItem("player_id", data.player_id);
-  });
+} else {
+  socket.emit("request_existing_player", existingPlayerId);
 }
 
-socket.emit("start_game", localStorage.getItem("player_id"));
+socket.on("current_player", (data) => {
+  localStorage.setItem("player_id", data.player_id);
+  startGame();
+});
 
 socket.on("new_question", ({ data }) => {
   const { game, question } = data;
