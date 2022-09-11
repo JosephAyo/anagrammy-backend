@@ -38,7 +38,7 @@ export const updateGameToNextLevel = async (gameId: string): Promise<Game | null
 export const updateGameAfterAnswer = async (game: Game, existingQuestion: Question, answer: IAnswerResponseDTO): Promise<Game | null> => {
   const { id: gameId } = game;
   const { data } = answer;
-  if (data) {
+  if (data && game.fail_count + game.correct_count < game.total_levels) {
     await updateQuestionAfterAnswer(existingQuestion, answer);
     await gameRepository
       .createQueryBuilder("game")
