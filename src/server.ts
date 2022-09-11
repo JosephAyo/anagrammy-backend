@@ -119,18 +119,19 @@ io.on("connection", function (socket) {
       const completedGame = await completeGame(gameId);
       return io
         .to(socketClientId)
-        .emit("game_completed", { data: { title: answer.title, code: answer.code, answer, game: completedGame } });
+        .emit("game_completed", { data: { title: answer.title, code: answer.code, answer, ...completedGame } });
     }
     return io.to(socketClientId).emit("answer_response", { data: { title: answer.title, code: answer.code, answer, game: updatedGame } });
   });
 
   socket.on("game_summary", async (data) => {
+    console.log('socket.on("game_summary"')
     const { playerId, gameId } = data;
     const existingGame = await getGameByIdAndPlayerId(gameId, playerId);
     if (!existingGame) return io.to(socketClientId).emit("error", { hasError: true, code: 424, message: "no existing game" });
     if (existingGame.current_level === existingGame.total_levels) {
       const completedGame = await completeGame(gameId);
-      return io.to(socketClientId).emit("game_summary_response", { data: { title: "Success", code: 200, game: completedGame } });
+      return io.to(socketClientId).emit("game_summary_response", { data: { title: "Success", code: 200, ...completedGame } });
     }
   });
 });

@@ -81,14 +81,14 @@ socket.on("answer_response", ({ data }) => {
 });
 
 socket.on("game_completed", ({ data }) => {
-  console.log(" game_completed data :>> ", data);
   socket.emit("game_summary", { playerId: localStorage.getItem("player_id"), gameId });
 });
 
 socket.on("game_summary_response", ({ data }) => {
+  console.log('data', data)
   console.log(" game_summary_response data :>> ", data);
-  gameSummaryEl.innerHTML = `<b>Total score:</b> ${data.game.total_score}`;
-  gameScoreEl.innerHTML = `<b>Correct Answers:</b> ${data.game.game.correct_count}`;
+  gameSummaryEl.innerHTML = `<b>Total score:</b> ${data.total_score}`;
+  gameScoreEl.innerHTML = `<b>Correct Answers:</b> ${data.game.correct_count}`;
   questionWordEl.hidden = true;
   answerFormSubmitButtonEl.hidden = true;
   noAnagramFormSubmitButtonEl.hidden = true;
