@@ -15,12 +15,12 @@ git clone https://github.com/JosephAyo/anagrammy-backend
 
 ### 2. Create gitignored files.
 They are:
-- src/pre-start/env/.env using the .env.example as a template
+- src/pre-start/env/.env using the .src/pre-start/env/env.example as a template
+- .env using the .env.example as a template
+
 
 ### 3. Run api via docker.
 
 ```
 docker-compose -f docker-compose.yml up
 ```
-
-### 4. Application management
