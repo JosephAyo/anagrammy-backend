@@ -15,7 +15,6 @@ git clone https://github.com/JosephAyo/anagrammy-backend
 
 ### 2. Create gitignored files.
 They are:
-- src/pre-start/env/.env using the .src/pre-start/env/env.example as a template
 - .env using the .env.example as a template
 
 

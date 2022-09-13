@@ -9,8 +9,8 @@ import { copy, execCommand, remove } from ".";
   try {
     // Remove current build
     await remove("./dist/");
-    // Copy production env file
-    await copy(`./src/pre-start/env/.env`, `./dist/src/pre-start/env/.env`);
+    // Copy env file
+    await copy(`./.env`, `./dist/.env`);
     await execCommand("yarn build", "./");
   } catch (err) {
     logger.err(err);

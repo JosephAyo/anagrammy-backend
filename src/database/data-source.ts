@@ -1,6 +1,4 @@
 import { DataSource } from "typeorm";
-import { readFileSync } from "fs";
-import path from "path";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -10,9 +8,6 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_NAME,
   port: process.env.DB_PORT as unknown as number,
   name: "default",
-  ...(!["test", "development"].includes(process.env.NODE_ENV as string) && {
-    ssl: { ca: readFileSync(path.join(__dirname, `../pre-start/env/ca-certificate.cer`)).toString() },
-  }),
   synchronize: false,
   logging: process.env.NODE_ENV == "development",
   entities: [__dirname + "/entity/*.{js,ts}"],
