@@ -19,7 +19,7 @@ services:
     env_file:
       - .env
     environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_PASSWORD: ${DB_PASS}
 
   adminer:
     image: adminer
