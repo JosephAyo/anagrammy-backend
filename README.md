@@ -10,9 +10,8 @@ This is the backend application for anagrammy
 ### 1. Clone repo
 
 ```
-git clone https://github.com/JosephAyo/anagrammy-backend
+git clone https://github.com/JosephAyo/anagrammy-backend && cd anagrammy-backend
 ```
-
 ### 2. Create gitignored files.
 They are:
 - .env using the .env.example as a template
